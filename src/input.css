@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+:root {
+  --red: #ff0000;
+  --darkRed: #cc0000;
+  --blue: #3b4cca;
+  --gold: #ffde00;
+}
+
+@layer utilities {
+  .absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+}
+
+@layer base {
+  nav {
+    @apply bg-[var(--red)] pb-3 pt-5 flex justify-center items-center gap-x-5 shadow-xl border-b-black border-b-4;
+  }
+}
+
+.pokeball {
+  @apply shadow-2xl h-[50px] w-[50px] rounded-full flex flex-col relative border border-black;
+}
+
+.pokeball__top {
+  @apply bg-[var(--red)] w-full h-1/2 rounded-t-full;
+}
+
+.pokeball__bottom {
+  @apply bg-white w-full h-1/2 rounded-b-full shadow-inner;
+}
+
+.pokeball__line {
+  @apply absolute w-full border-2 border-black;
+}
+
+.pokeball__btn {
+  @apply h-5 w-5 rounded-full shadow-inner border-4 border-black bg-white;
+}
