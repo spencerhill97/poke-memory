@@ -6,7 +6,8 @@
   --red: #ff0000;
   --darkRed: #cc0000;
   --blue: #3b4cca;
-  --gold: #ffde00;
+  --yellow: #ffde00;
+  --gold: #b3a125;
 }
 
 @layer utilities {
@@ -16,6 +17,10 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
   }
+
+  .flip-card {
+    transform: rotateZ(180);
+  }
 }
 
 @layer base {
@@ -24,8 +29,9 @@
   }
 }
 
+/*======================================== pokeball ======================================== */
 .pokeball {
-  @apply shadow-2xl h-[50px] w-[50px] rounded-full flex flex-col relative border border-black;
+  @apply shadow-2xl h-[50px] w-[50px] rounded-full flex flex-col relative border-2 border-black;
 }
 
 .pokeball__top {
@@ -42,4 +48,23 @@
 
 .pokeball__btn {
   @apply h-5 w-5 rounded-full shadow-inner border-4 border-black bg-white;
+}
+
+/*======================================== card grid ======================================== */
+.card-grid {
+  @apply flex flex-wrap gap-x-4 gap-y-8 items-center justify-center mt-[25px];
+}
+
+/*======================================== card ======================================== */
+.card {
+  @apply flex flex-col justify-center items-center h-max w-[175px] rounded-lg border-[5px] border-[var(--gold)] shadow-xl p-8 gap-y-2 
+  cursor-pointer;
+}
+
+.card__name {
+  @apply font-medium capitalize font-["Poppins"];
+}
+
+.card__image {
+  @apply bg-white rounded-sm;
 }
