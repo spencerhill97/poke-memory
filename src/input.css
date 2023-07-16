@@ -17,10 +17,6 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
   }
-
-  .flip-card {
-    transform: rotateZ(180);
-  }
 }
 
 @layer base {
@@ -55,16 +51,45 @@
   @apply flex flex-wrap gap-x-4 gap-y-8 items-center justify-center mt-[25px];
 }
 
-/*======================================== card ======================================== */
+/*======================================== comment ======================================== */
+/* implementation of the card flipping when shuffling */
 .card {
-  @apply flex flex-col justify-center items-center h-max w-[175px] rounded-lg border-[5px] border-[var(--gold)] shadow-xl p-8 gap-y-2 
-  cursor-pointer;
+  perspective: 1000px;
+  @apply bg-transparent h-[175px] w-[175px];
 }
 
-.card__name {
+.card__inner--flip {
+  transform: rotateY(180deg);
+}
+
+/* .card:hover .card__inner {
+  transform: rotateY(180deg);
+} */
+
+.card__inner {
+  @apply relative w-full h-full cursor-pointer transition-transform duration-300;
+}
+
+.card__front__name {
   @apply font-medium capitalize font-["Poppins"];
 }
 
-.card__image {
+.card__front__image {
   @apply bg-white rounded-sm;
+}
+
+.card__front,
+.card__back {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  @apply absolute h-full w-full flex flex-col grow justify-center items-center h-full w-full rounded-lg 
+  border-[5px] shadow-xl gap-y-2 p-8;
+}
+
+.card__front {
+}
+
+.card__back {
+  transform: rotateY(180deg);
+  @apply bg-[var(--blue)] text-white border-blue-900;
 }

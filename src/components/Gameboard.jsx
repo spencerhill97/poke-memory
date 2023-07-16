@@ -1,42 +1,33 @@
 import Card from "./Card.jsx";
 import { useGlobalContext } from "../context/GlobalContext";
 import { useState, useEffect } from "react";
-import fetchPokemon from "../services/fetchPokemon.jsx";
-import shuffleArray from "../utilities/shuffleArray.jsx";
+import fetchPokemon from "../services/fetchPokemon.js";
+import shuffleArray from "../utilities/shuffleArray.js";
+import delayCardFlip from "../utilities/delayCardFlip.js";
+import delayCardFlipReverse from "../utilities/delayCardFlipReverse.js";
+import sleep from "../utilities/sleep.js";
 
 function Gameboard() {
   const { level, cardCount } = useGlobalContext();
-  const [isLoading, setIsLoading] = useState(false);
   const [pokemons, setPokemons] = useState(null);
-
-  // useEffect(() => {
-  //   const loadCards = async () => {
-  //     setPokemons(shuffleArray(await fetchPokemon(level, cardCount)));
-  //   };
-
-  //   loadCards();
-  // }, [level]);
+  const [isUpdated, setIsUpdated] = useState(false);
 
   useEffect(() => {
-    setPokemons([
-      { id: 1, name: 1, image: null },
-      { id: 2, name: 2, image: null },
-      { id: 3, name: 3, image: null },
-      { id: 4, name: 4, image: null },
-      { id: 5, name: 5, image: null },
-      { id: 6, name: 6, image: null },
-      { id: 7, name: 7, image: null },
-      { id: 8, name: 8, image: null },
-      { id: 9, name: 9, image: null },
-      { id: 10, name: 10, image: null },
-    ]);
-  }, []);
+    const loadCards = async () => {
+      await setPokemons(shuffleArray(await fetchPokemon(level, cardCount)));
+    };
+    loadCards();
+  }, [level]);
 
-  const handleShuffle = async () => {
+  const handleLoading = async () => {
     try {
-      await setIsLoading(true);
+      await delayCardFlip("card__inner", "card__inner--flip");
+      await sleep(750);
+      setIsUpdated(!isUpdated);
       await setPokemons(shuffleArray(pokemons));
-      await setIsLoading(false);
+      setIsUpdated(!isUpdated);
+      await sleep(750);
+      await delayCardFlipReverse("card__inner", "card__inner--flip");
     } catch (error) {
       throw error;
     }
@@ -44,14 +35,15 @@ function Gameboard() {
 
   return (
     <section className="card-grid">
-      {!isLoading &&
-        pokemons &&
-        pokemons.map((pokemon) => {
+      {pokemons &&
+        pokemons.map((pokemon, index) => {
           return (
             <Card
               key={pokemon.id}
               pokemon={pokemon}
-              handleClick={handleShuffle}
+              index={index}
+              handleClick={handleLoading}
+              isUpdated={isUpdated}
             />
           );
         })}
