@@ -23,6 +23,15 @@
   nav {
     @apply bg-[var(--red)] pb-3 pt-5 flex justify-center items-center gap-x-5 shadow-xl border-b-black border-b-4;
   }
+
+  main {
+    background: radial-gradient(
+      at right top,
+      rgb(255, 228, 230),
+      rgb(204, 251, 241)
+    );
+    min-height: 100vh;
+  }
 }
 
 /*======================================== pokeball ======================================== */
@@ -46,9 +55,23 @@
   @apply h-5 w-5 rounded-full shadow-inner border-4 border-black bg-white;
 }
 
+/*======================================== scoreboard ======================================== */
+.scoreboard {
+  @apply flex gap-x-10 justify-center items-center mt-[50px] shadow-md bg-white w-max mx-auto
+  border-2 border-gray-200 rounded-lg;
+}
+
+.scoreboard__item {
+  @apply capitalize p-4 text-gray-500;
+}
+
+.scoreboard__item--state {
+  @apply font-bold text-slate-700 ml-2;
+}
+
 /*======================================== card grid ======================================== */
 .card-grid {
-  @apply flex flex-wrap gap-x-4 gap-y-8 items-center justify-center mt-[25px];
+  @apply flex flex-wrap gap-x-4 gap-y-8 mx-auto items-center justify-center my-[50px] max-w-[1000px];
 }
 
 /*======================================== comment ======================================== */
@@ -58,38 +81,107 @@
   @apply bg-transparent h-[175px] w-[175px];
 }
 
+.card__inner {
+  transform-style: preserve-3d;
+  @apply relative w-full h-full cursor-pointer transition-transform duration-300 rounded-lg;
+}
+
 .card__inner--flip {
   transform: rotateY(180deg);
 }
 
-/* .card:hover .card__inner {
-  transform: rotateY(180deg);
-} */
-
-.card__inner {
-  @apply relative w-full h-full cursor-pointer transition-transform duration-300;
-}
-
 .card__front__name {
-  @apply font-medium capitalize font-["Poppins"];
+  text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.9);
+  @apply font-medium capitalize font-["Poppins"] text-lg;
 }
 
 .card__front__image {
-  @apply bg-white rounded-sm;
+  @apply bg-transparent;
 }
 
 .card__front,
 .card__back {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  @apply absolute h-full w-full flex flex-col grow justify-center items-center h-full w-full rounded-lg 
-  border-[5px] shadow-xl gap-y-2 p-8;
-}
-
-.card__front {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  @apply absolute h-full w-full flex flex-col grow justify-center items-center h-full w-full
+  p-8 rounded-lg border-[5px];
 }
 
 .card__back {
   transform: rotateY(180deg);
   @apply bg-[var(--blue)] text-white border-blue-900;
+}
+
+/*======================================== card "types" variations ======================================== */
+.card__front--normal {
+  @apply bg-gradient-to-r from-[#A8A878] to-[#D8D8D0] text-[#f5f5ef] border-[#e3e3d3];
+}
+
+.card__front--grass {
+  @apply bg-gradient-to-r from-[#78C850] to-[#C0F860] text-[#eefee7] border-[#cdfbb6];
+}
+
+.card__front--water {
+  @apply bg-gradient-to-r from-[#6890F0] to-[#98D8D8] text-[#e6edfe] border-[#cfdcfc];
+}
+
+.card__front--fire {
+  @apply bg-gradient-to-r from-[#F08030] to-[#F8D030] text-[#fff0eb] border-[#f9d3b8];
+}
+
+.card__front--bug {
+  @apply bg-gradient-to-r from-[#A8B820] to-[#D8E030] text-[#fafdd8] border-[#f5fbc1];
+}
+
+.card__front--electric {
+  @apply bg-gradient-to-r from-[#F8D030] to-[#F8F878] text-[#fef7dd] border-[#fceeb5];
+}
+
+.card__front--ice {
+  @apply bg-gradient-to-r from-[#98D8D8] to-[#D0F8E8] text-[#f0ffff] border-[#cffcfc];
+}
+
+.card__front--fighting {
+  @apply bg-gradient-to-r from-[#C03028] to-[#F08030] text-[#ffeceb] border-[#fac0bd];
+}
+
+.card__front--poison {
+  @apply bg-gradient-to-r from-[#A040A0] to-[#D880B8] text-[#fee1fe] border-[#fccffc];
+}
+
+.card__front--ground {
+  @apply bg-gradient-to-r from-[#E0C068] to-[#F8F878] text-[#fff9eb] border-[#faeabd];
+}
+
+.card__front--flying {
+  @apply bg-gradient-to-r from-[#A890F0] to-[#C8C0F8] text-[#f7f5ff] border-[#ece6fe];
+}
+
+.card__front--psychic {
+  @apply bg-gradient-to-r from-[#F85888] to-[#F8C0B0] text-[#fee7ee] border-[#fcb6cb];
+}
+
+.card__front--rock {
+  @apply bg-gradient-to-r from-[#B8A038] to-[#E0C068] text-[#fefae6] border-[#f9efc2];
+}
+
+.card__front--ghost {
+  @apply bg-gradient-to-r from-[#705898] to-[#A890F0] text-[#f6f0ff] border-[#e0cffc];
+}
+
+.card__front--dark {
+  @apply bg-gradient-to-r from-[#705848] to-[#A8A878] text-[#f1ece9] border-[#d7cac1];
+}
+
+.card__front--dragon {
+  @apply bg-gradient-to-r from-[#7038F8] to-[#B8A0F8] text-[#eee6fe] border-[#cbb5fc];
+}
+
+.card__front--steel {
+  @apply bg-gradient-to-r from-[#B8B8D0] to-[#D8D8C0] text-[#f0f0f5] border-[#e0e0eb];
+}
+
+.card__front--fairy {
+  @apply bg-gradient-to-r from-[#F0B6BC] to-[#F5CAD1] text-[#fcf2f3] border-[#f6d5d8];
 }

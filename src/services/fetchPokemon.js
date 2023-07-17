@@ -1,10 +1,10 @@
 import axios from "axios";
 
 async function fetchPokemon(level, amount) {
-  const offset = level ? level * amount : 1;
+  const offset = level ? level * amount + 1 : 1;
   const result = [];
   try {
-    for (let i = 1; i < offset + amount; i++) {
+    for (let i = offset; i < offset + amount; i++) {
       const response = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${i}`
       );
@@ -12,7 +12,8 @@ async function fetchPokemon(level, amount) {
       const id = pokemon.id;
       const name = pokemon.name;
       const image = pokemon.sprites.front_default;
-      result.push({ id, name, image });
+      const type = pokemon.types[0].type.name;
+      result.push({ id, name, image, type });
     }
     return result;
   } catch (error) {
