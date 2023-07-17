@@ -6,6 +6,7 @@ import shuffleArray from "../utilities/shuffleArray.js";
 import delayCardFlip from "../utilities/delayCardFlip.js";
 import delayCardFlipReverse from "../utilities/delayCardFlipReverse.js";
 import sleep from "../utilities/sleep.js";
+import Loading from "../ui/Loading.jsx";
 
 function Gameboard() {
   const {
@@ -76,6 +77,7 @@ function Gameboard() {
   return (
     <section className="card-grid">
       {isLoaded ? (
+        pokemons &&
         pokemons.map((pokemon) => {
           return (
             <Card
@@ -87,7 +89,7 @@ function Gameboard() {
           );
         })
       ) : (
-        <h2>not loading</h2>
+        <Loading />
       )}
     </section>
   );

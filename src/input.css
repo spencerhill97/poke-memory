@@ -17,13 +17,13 @@
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
   }
+
+  .spinner {
+    @apply animate-spin h-5 w-5 fill-red-500 text-gray-500;
+  }
 }
 
 @layer base {
-  * {
-    scroll-behavior: smooth;
-  }
-
   nav {
     @apply bg-[var(--red)] pb-3 pt-5 flex justify-center items-center shadow-xl border-b-black border-b-4 px-4;
   }
