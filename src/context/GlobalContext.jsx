@@ -11,6 +11,9 @@ const AppContext = ({ children }) => {
   const [level, setLevel] = useState(0);
   const [cardCount, setCardCount] = useState(10);
 
+  const [isLevelUpdated, setIsLevelUpdated] = useState(true);
+  const [isGameOver, setIsGameOver] = useState(false);
+
   useEffect(() => {
     setGame(new GameController());
   }, []);
@@ -29,12 +32,15 @@ const AppContext = ({ children }) => {
 
   function incrementLevel() {
     setLevel(level + 1);
+    setIsLevelUpdated(!isLevelUpdated);
   }
 
   function restartGame() {
+    console.log("ran");
     setScore(0);
     setTotal(0);
     setLevel(0);
+    setIsGameOver(!isGameOver);
   }
 
   const value = {
@@ -49,6 +55,10 @@ const AppContext = ({ children }) => {
     game,
     setGame,
     resetScore,
+    isLevelUpdated,
+    setIsLevelUpdated,
+    isGameOver,
+    setIsGameOver,
   };
   return (
     <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>

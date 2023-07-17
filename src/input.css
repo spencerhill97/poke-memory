@@ -20,8 +20,12 @@
 }
 
 @layer base {
+  * {
+    scroll-behavior: smooth;
+  }
+
   nav {
-    @apply bg-[var(--red)] pb-3 pt-5 flex justify-center items-center gap-x-5 shadow-xl border-b-black border-b-4;
+    @apply bg-[var(--red)] pb-3 pt-5 flex justify-center items-center gap-x-5 shadow-xl border-b-black border-b-4 px-4;
   }
 
   main {
@@ -31,6 +35,10 @@
       rgb(204, 251, 241)
     );
     min-height: 100vh;
+  }
+
+  button {
+    @apply flex justify-center items-center gap-x-2 uppercase text-lg;
   }
 }
 
@@ -57,8 +65,8 @@
 
 /*======================================== scoreboard ======================================== */
 .scoreboard {
-  @apply flex gap-x-10 justify-center items-center mt-[50px] shadow-md bg-white w-max mx-auto
-  border-2 border-gray-200 rounded-lg;
+  @apply flex max-[450px]:px-4  max-[450px]:flex-col gap-x-10 justify-center items-center mt-[50px] 
+  shadow-md bg-white w-max mx-auto border-2 border-gray-200 rounded-lg;
 }
 
 .scoreboard__item {
@@ -71,14 +79,15 @@
 
 /*======================================== card grid ======================================== */
 .card-grid {
-  @apply flex flex-wrap gap-x-4 gap-y-8 mx-auto items-center justify-center my-[50px] max-w-[1000px];
+  @apply flex flex-wrap px-8 max-[400px]:px-4 gap-x-4 gap-y-8 mx-auto items-center justify-center 
+  pt-[36px] pb-[36px] max-w-[1100px];
 }
 
 /*======================================== comment ======================================== */
 /* implementation of the card flipping when shuffling */
 .card {
   perspective: 1000px;
-  @apply bg-transparent h-[175px] w-[175px];
+  @apply bg-transparent h-[150px] w-[150px] sm:h-[175px] sm:w-[175px] max-[370px]:w-[125px] max-[370px]:h-[125px];
 }
 
 .card__inner {
@@ -92,7 +101,7 @@
 
 .card__front__name {
   text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.9);
-  @apply font-medium capitalize font-["Poppins"] text-lg;
+  @apply font-medium capitalize font-["Poppins"] text-lg max-[370px]:hidden;
 }
 
 .card__front__image {
@@ -105,7 +114,7 @@
   backface-visibility: hidden;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   @apply absolute h-full w-full flex flex-col grow justify-center items-center h-full w-full
-  p-8 rounded-lg border-[5px];
+  p-4 max-[370px]:p-2 rounded-lg border-[5px];
 }
 
 .card__back {
@@ -184,4 +193,70 @@
 
 .card__front--fairy {
   @apply bg-gradient-to-r from-[#F0B6BC] to-[#F5CAD1] text-[#fcf2f3] border-[#f6d5d8];
+}
+
+/*======================================== comment ======================================== */
+.modal-wrapper {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  @apply fixed m-auto top-0 left-0 right-0 bottom-0 z-10 grid place-items-center h-full w-full;
+}
+
+/*======================================== comment ======================================== */
+.winning-modal,
+.losing-modal {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  @apply flex flex-col items-center justify-center bg-white shadow-2xl h-[500px] w-[300px] rounded-lg border-t-[16px] 
+  border-red-500 gap-y-[20px] relative pb-[20px];
+}
+
+.winning-modal__trophy,
+.losing-modal-loser {
+  @apply text-[150px] relative grid place-items-center;
+}
+
+.winning-modal__trophy i {
+  @apply text-[var(--gold)];
+  -webkit-text-fill-color: var(--gold);
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+}
+
+.winning-modal__trophy--number {
+  @apply text-2xl text-black font-bold absolute top-5 px-2 bg-white rounded-full;
+}
+
+.losing-modal__text--number {
+  @apply text-black font-bold ml-2;
+}
+
+.winning-modal__title,
+.winning-modal__text,
+.losing-modal__text,
+.losing-modal__title {
+  @apply text-[var(--blue)];
+}
+
+.winning-modal__title,
+.losing-modal__title {
+  @apply font-extrabold text-2xl font-[Poppins];
+}
+
+.winning-modal__text {
+  @apply font-bold text-xl font-[Poppins];
+}
+
+.losing-modal__text {
+  @apply font-medium text-lg font-[Poppins] text-center;
+}
+
+.losing-modal__text:last-of-type {
+  @apply mt-2;
+}
+
+.winning-modal__btn,
+.losing-modal__btn {
+  @apply absolute bottom-0 right-0 my-4 mx-4 py-2 px-2 text-[var(--darkRed)] rounded-md hover:bg-red-100 
+  hover:shadow-xl active:shadow-none font-medium;
 }

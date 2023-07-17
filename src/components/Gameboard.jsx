@@ -10,25 +10,35 @@ import sleep from "../utilities/sleep.js";
 function Gameboard() {
   const {
     level,
-    score,
-    total,
     cardCount,
-    incrementLevel,
+    isLevelUpdated,
+    setIsLevelUpdated,
     incrementTotal,
     incrementScore,
     resetScore,
-    restartGame,
+    setIsGameOver,
+    isGameOver,
     game,
   } = useGlobalContext();
   const [pokemons, setPokemons] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const loadCards = async () => {
-      setPokemons([]);
-      await setPokemons(shuffleArray(await fetchPokemon(level, cardCount)));
+      try {
+        setIsLoaded(false);
+        setPokemons([]);
+        await setPokemons(
+          await shuffleArray(await fetchPokemon(level, cardCount))
+        );
+        setIsLoaded(true);
+      } catch (error) {
+        throw error;
+      }
     };
     loadCards();
+    setIsUpdated(true);
   }, [level]);
 
   const handleLoading = async () => {
@@ -51,23 +61,21 @@ function Gameboard() {
       incrementTotal();
       incrementScore();
       if (game.checkLevel(cardCount)) {
-        console.log("next level");
-        incrementLevel();
+        setIsLevelUpdated(!isLevelUpdated);
         resetScore();
         game.resetPokemon();
       } else {
-        console.log("next turn");
         handleLoading();
       }
     } else {
-      restartGame();
+      setIsGameOver(!isGameOver);
       game.resetPokemon();
     }
   };
 
   return (
     <section className="card-grid">
-      {pokemons &&
+      {isLoaded ? (
         pokemons.map((pokemon) => {
           return (
             <Card
@@ -77,7 +85,10 @@ function Gameboard() {
               isUpdated={isUpdated}
             />
           );
-        })}
+        })
+      ) : (
+        <h2>not loading</h2>
+      )}
     </section>
   );
 }
