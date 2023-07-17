@@ -1,6 +1,6 @@
 {
   "homepage": "https://spencerhill97.github.io/poke-memory",
-  "name": "memory-game",
+  "name": "poke-memory",
   "private": true,
   "version": "0.0.0",
   "type": "module",
