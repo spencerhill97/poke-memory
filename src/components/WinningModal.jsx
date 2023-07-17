@@ -33,7 +33,7 @@ const WinningModal = () => {
         <h3 className="winning-modal__title">Congratulations!</h3>
         <div className="winning-modal__trophy">
           <i className="fa-solid fa-trophy"></i>
-          <span className="winning-modal__trophy--number">{level}</span>
+          <span className="winning-modal__trophy--number">{level + 1}</span>
         </div>
         <p className="winning-modal__text">New level!</p>
         <button

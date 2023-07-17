@@ -5,7 +5,7 @@ function Scoreboard() {
   return (
     <section className="scoreboard">
       <div className="scoreboard__item">
-        level <span className="scoreboard__item--state">{level}</span>
+        level <span className="scoreboard__item--state">{level + 1}</span>
       </div>
       <div className="scoreboard__item">
         remaining{" "}
